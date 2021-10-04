@@ -15,13 +15,13 @@ else:
 chars = ' ,<SPACE>,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',')
 
 train_audio_transforms = torch.nn.Sequential(
-    torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_mels=64),
+    torchaudio.transforms.MelSpectrogram(sample_rate=48000, win_length=32*48000/1000, hop_length=10*48000/1000),
     torchaudio.transforms.FrequencyMasking(freq_mask_param=15),
     torchaudio.transforms.TimeMasking(time_mask_param=35),
 )
 
 valid_audio_transforms = torch.nn.Sequential(
-    torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_mels=64),
+    torchaudio.transforms.MelSpectrogram(sample_rate=48000, win_length=32*48000/1000, hop_length=10*48000/1000),
 )
 
 

@@ -20,17 +20,17 @@ while [ -n "$1" ]; do # while loop starts
 
 done
 
-if [ $init_kaggle ]
+if $init_kaggle
 then
     chmod +x ./happy_sr/happy_sr/scripts/colab_init_kaggle.sh
     ./happy_sr/happy_sr/scripts/colab_init_kaggle.sh
 fi
 
-if [ $get_dataset ]
+if $get_dataset
 then 
     chmod +x ./happy_sr/happy_sr/scripts/kaggle_cv_util.sh
     ./happy_sr/happy_sr/scripts/kaggle_cv_util.sh
     python ./happy_sr/happy_sr/scripts/format_labels.py
 fi
 
-python create_model.py
+python happy_sr/create_model.py
