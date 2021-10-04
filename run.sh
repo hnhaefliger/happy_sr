@@ -22,15 +22,15 @@ done
 
 if [ $init_kaggle ]
 then
-    chmod +x ./happy_sr/scripts/colab_init_kaggle.sh
-    ./happy_sr/scripts/colab_init_kaggle.sh
+    chmod +x ./happy_sr/happy_sr/scripts/colab_init_kaggle.sh
+    ./happy_sr/happy_sr/scripts/colab_init_kaggle.sh
 fi
 
 if [ $get_dataset ]
 then 
-    chmod +x ./happy_sr/scripts/kaggle_cv_util.sh
-    ./happy_sr/scripts/kaggle_cv_util.sh
-    python ./happy_sr/scripts/format_labels.py
+    chmod +x ./happy_sr/happy_sr/scripts/kaggle_cv_util.sh
+    ./happy_sr/happy_sr/scripts/kaggle_cv_util.sh
+    python ./happy_sr/happy_sr/scripts/format_labels.py
 fi
 
 python create_model.py
