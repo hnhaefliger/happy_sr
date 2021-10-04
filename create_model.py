@@ -1,6 +1,8 @@
-from . import dataset
-from . import model
-from . import utils
+import sys
+
+from happy_sr import dataset
+from happy_sr import model
+from happy_sr import utils
 
 train_loader = dataset.get_training_data(batch_size=16, root='./cv-valid-train', tsv='train.tsv')
 test_loader = dataset.get_training_data(batch_size=16, root='./cv-valid-test', tsv='test.tsv')
