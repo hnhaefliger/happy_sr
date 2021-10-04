@@ -28,9 +28,6 @@ class Model(torch.nn.Module):
         x = torch.reshape(x, (sizes[0], sizes[1] * sizes[2], sizes[3]))
         x = torch.transpose(x, 1, 2)
         x = self.hidden1(x)
-        x = torch.transpose(x, 1, 2)
         x = self.rnn(x)
-        x = torch.transpose(x, 1, 2)
         x = self.hidden2(x)
-        x = torch.transpose(x, 1, 2)
         return x
