@@ -27,6 +27,8 @@ while i < len(sys.argv):
         epochs = int(sys.argv[i+1])
         i += 1
 
+    i += 1
+
 print('loading dataset...')
 
 train_loader = dataset.get_training_data(n_mels, batch_size=16, root='./cv-valid-train', tsv='train.tsv')

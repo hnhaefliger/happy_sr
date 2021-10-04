@@ -5,21 +5,31 @@ set -e
 init_kaggle=false
 get_dataset=false
 save_model=""
-n_mels = 64
-hidden_dim = 256
-dropout = 0.05
-epochs = 10
+n_mels=64
+hidden_dim=256
+dropout=0.05
+epochs=10
 
 while [ -n "$1" ]; do # while loop starts
 	case "$1" in
 
-	"--init-kaggle") init_kaggle=true ;;
+    "--init-kaggle") init_kaggle=true ;;
     "--get-dataset") get_dataset=true ;;
-    "--save-model") $model_path="$2" ;;
-    "--n-mels") $n_mels="$2" ;;
-    "--hidden-dim") $hidden_dim="$2" ;;
-    "--dropout") $dropout="$2" ;;
-    "--epochs") $epochs="$2" ;;
+    "--save-model") 
+        model_path="$2"
+        shift ;;
+    "--n-mels") 
+        n_mels="$2"
+        shift ;;
+    "--hidden-dim")
+        hidden_dim="$2"
+        shift ;;
+    "--dropout")
+        dropout="$2"
+        shift ;;
+    "--epochs")
+        epochs="$2"
+        shift ;;
 
 	*) echo "Option $1 not recognized" ;;
 
