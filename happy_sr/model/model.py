@@ -24,11 +24,13 @@ class Model(torch.nn.Module):
         )
 
     def forward(self, x):
-        x = x.transpose(0, 1)  # (batch, time, feature)
+        print(x.size())
+        x = torch.transpose(x, 1, 2)
+        print(x.size())
         x = self.hidden1(x)
-        x = x.transpose(1, 2)  # (batch, feature, time)
+        x = torch.transpose(x, 1, 2)
         x = self.rnn(x)
-        x = x.transpose(1, 2)  # (batch, time, feature)
+        x = torch.transpose(x, 1, 2)
         x = self.hidden2(x)
-        x = x.transpose(1, 2)  # (batch, feature, time)
+        x = torch.transpose(x, 1, 2)
         return x
