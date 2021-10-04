@@ -20,7 +20,7 @@ train_audio_transforms = torch.nn.Sequential(
         win_length=int(32*48000/1000), 
         hop_length=int(10*48000/1000), 
         n_fft=int(32*48000/1000),
-        n_mels=32,
+        n_mels=64,
     ),
     torchaudio.transforms.FrequencyMasking(freq_mask_param=15),
     torchaudio.transforms.TimeMasking(time_mask_param=35),
@@ -32,7 +32,7 @@ valid_audio_transforms = torch.nn.Sequential(
         win_length=int(32*48000/1000), 
         hop_length=int(10*48000/1000),
         n_fft=int(32*48000/1000),
-        n_mels=32,
+        n_mels=64,
     ),
 )
 
