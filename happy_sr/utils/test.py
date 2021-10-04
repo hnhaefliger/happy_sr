@@ -6,6 +6,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def test(model, loss_fn, dataset):
+    model.to(device)
     model.eval()
     progress_bar = tqdm(total=len(dataset))
     progress_bar.set_description(f'evaluation')

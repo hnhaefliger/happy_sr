@@ -6,6 +6,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def train(model, optimizer, loss_fn, dataset):
+    model.to(device)
     model.train()
     progress_bar = tqdm(total=len(dataset))
     progress_bar.set_description(f'training')
@@ -16,8 +17,8 @@ def train(model, optimizer, loss_fn, dataset):
 
         output = model(data)
         output = torch.nn.functional.log_softmax(output, dim=2)
-        output = output.transpose(0, 1)
 
+        output = output.transpose(0, 1)
         loss = loss_fn(output, target, input_lengths, label_lengths)
 
         optimizer.zero_grad()
