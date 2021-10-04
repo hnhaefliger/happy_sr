@@ -4,7 +4,7 @@ import torch
 class BiRNN(torch.nn.Module):
     def __init__(self):
         super(BiRNN, self).__init__()
-        self.rnn = torch.nn.RNN(128, 128, bidirectional=True)
+        self.rnn = torch.nn.RNN(128, 64, bidirectional=True)
         self.dropout = torch.nn.Dropout(0.05)
 
     def forward(self, x):
