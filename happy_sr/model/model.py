@@ -17,7 +17,7 @@ class Model(torch.nn.Module):
         )
         self.rnn = torch.nn.Sequential(
             torch.nn.RNN(128, 128, bidirectional=True),
-            torch.nn.Dropout(0.50),
+            torch.nn.Dropout(0.05),
         )
         self.hidden2 = torch.nn.Sequential(
             torch.nn.Linear(128, 29)
