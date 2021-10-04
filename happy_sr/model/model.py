@@ -1,8 +1,20 @@
 import torch
 
 
+class BiRNN(torch.nn.Module):
+    def __init__(self):
+        super(BiRNN, self).__init__()
+        self.rnn =  torch.nn.RNN(128, 128, bidirectional=True),
+        self.dropout = torch.nn.Dropout(0.05)
+
+    def forward(self, x):
+        x, _ = self.rnn(x)
+        x = self.dropout(x)
+        return x
+
+
 class Model(torch.nn.Module):
-    def __init__(self, n_cnn_layers, n_rnn_layers, rnn_dim, n_class, n_feats, stride=2, dropout=0.1):
+    def __init__(self):
         super(Model, self).__init__()
         self.hidden1 = torch.nn.Sequential(
             torch.nn.Linear(64, 128),
@@ -15,10 +27,9 @@ class Model(torch.nn.Module):
             torch.nn.ReLU(),
             torch.nn.Dropout(0.05),
         )
-        self.rnn = torch.nn.Sequential(
-            torch.nn.RNN(128, 128, bidirectional=True),
-            torch.nn.Dropout(0.05),
-        )
+
+        self.rnn = BiRNN()
+    
         self.hidden2 = torch.nn.Sequential(
             torch.nn.Linear(128, 29)
         )

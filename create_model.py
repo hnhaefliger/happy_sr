@@ -12,7 +12,7 @@ test_loader = dataset.get_training_data(batch_size=16, root='./cv-valid-test', t
 print('done loading dataset.\n')
 print('initializing model...')
 
-sr_model = model.Model(2, 2, 16, 29, 64)
+sr_model = model.Model()
 
 print('model ready.\n')
 
