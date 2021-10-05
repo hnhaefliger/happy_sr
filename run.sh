@@ -10,6 +10,7 @@ hidden_dim=256
 dropout=0.05
 epochs=10
 batch_size=16
+learning_rate=1e-5
 
 while [ -n "$1" ]; do # while loop starts
 	case "$1" in
@@ -34,6 +35,9 @@ while [ -n "$1" ]; do # while loop starts
     "--batch-size")
         batch_size="$2"
         shift ;;
+    "--lr")
+        learning_rate="$2"
+        shift ;;
 
 	*) echo "Option $1 not recognized" ;;
 
@@ -56,4 +60,4 @@ then
     python ./happy_sr/happy_sr/scripts/format_labels.py
 fi
 
-python happy_sr/create_model.py --n-mels $n_mels --hidden-dim $hidden_dim --dropout $dropout --epochs $epochs --batch-size $batch_size
+python happy_sr/create_model.py --n-mels $n_mels --hidden-dim $hidden_dim --dropout $dropout --epochs $epochs --batch-size $batch_size --lr $learning_rate

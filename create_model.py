@@ -9,6 +9,7 @@ hidden_dim = 256
 dropout = 0.05
 epochs = 10
 batch_size = 16
+learning_rate = 1e-5
 
 i = 0
 while i < len(sys.argv):
@@ -32,6 +33,10 @@ while i < len(sys.argv):
         batch_size = int(sys.argv[i+1])
         i += 1
 
+    elif sys.argv[i] == '--lr':
+        learning_rate = float(sys.argv[i+1])
+        i += 1
+
     i += 1
 
 print('loading dataset...')
@@ -51,7 +56,7 @@ if model.utils.device == 'cuda':
 
 print('preparing optimizer...')
 
-optimizer, scheduler = model.get_optimizer(sr_model, train_loader)
+optimizer, scheduler = model.get_optimizer(sr_model, train_loader, epochs, learning_rate)
 loss = model.get_loss()
 
 print('optimizer ready.\n')
