@@ -52,7 +52,7 @@ loss = model.get_loss()
 print('optimizer ready.\n')
 print('starting training...')
 
-for epoch in range(1, n_epoch + 1):
+for epoch in range(1, epoch + 1):
     print(f'epoch {epoch}')
     utils.train(sr_model, optimizer, loss, train_loader)
     utils.test(sr_model, loss, test_loader)
