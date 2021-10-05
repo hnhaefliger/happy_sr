@@ -56,7 +56,7 @@ def greedy_decoder(output, labels, blank_label=28, collapse_repeated=True):
     decoded = []
 
     for phrase in torch.argmax(output, dim=2):
-        decoded.append([])
+        decoded.append([''])
 
         for arg in phrase:
             if arg != blank_label:
