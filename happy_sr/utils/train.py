@@ -25,9 +25,10 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         loss.backward()
         optimizer.step()
 
-        info = {}
-        for metric in metrics:
-            info[metric.__name__] = metric(output, target)
+        if batch_idx % 10 == 0:
+            info = {}
+            for metric in metrics:
+                info[metric.__name__] = metric(output, target)
 
         progress_bar.set_postfix(loss=f'{loss.item():.2f}', **info)
         progress_bar.update(1)
