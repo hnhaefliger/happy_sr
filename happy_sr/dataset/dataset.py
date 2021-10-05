@@ -22,6 +22,28 @@ def text_to_int(text):
 def int_to_text(labels):
     return ''.join([chars[label] for label in labels])
 
+train_audio_transforms = torch.nn.Sequential(
+    torchaudio.transforms.MelSpectrogram(
+        sample_rate=48000,
+        win_length=int(32*48000/1000),
+        hop_length=int(10*48000/1000),
+        n_fft=int(32*48000/1000),
+        n_mels=28#n_mels,
+    ),
+    torchaudio.transforms.FrequencyMasking(freq_mask_param=15),
+    torchaudio.transforms.TimeMasking(time_mask_param=35),
+)
+
+valid_audio_transforms = torch.nn.Sequential(
+    torchaudio.transforms.MelSpectrogram(
+        sample_rate=48000,
+        win_length=int(32*48000/1000),
+        hop_length=int(10*48000/1000),
+        n_fft=int(32*48000/1000),
+        n_mels=28#n_mels,
+    ),
+)
+
 
 def prepare_training_data(data):
     spectrograms = []
@@ -74,18 +96,6 @@ def prepare_testing_data(data):
 def get_training_data(n_mels, batch_size=16, root='./cv-valid-train', tsv='train.tsv'):
     train_dataset = torchaudio.datasets.COMMONVOICE(root, tsv)
 
-    train_audio_transforms = torch.nn.Sequential(
-        torchaudio.transforms.MelSpectrogram(
-            sample_rate=48000,
-            win_length=int(32*48000/1000),
-            hop_length=int(10*48000/1000),
-            n_fft=int(32*48000/1000),
-            n_mels=n_mels,
-        ),
-        torchaudio.transforms.FrequencyMasking(freq_mask_param=15),
-        torchaudio.transforms.TimeMasking(time_mask_param=35),
-    )
-
     return torch.utils.data.DataLoader(
         train_dataset,
         batch_size=batch_size,
@@ -98,16 +108,6 @@ def get_training_data(n_mels, batch_size=16, root='./cv-valid-train', tsv='train
 
 def get_testing_data(n_mels, batch_size=16, root='./cv-valid-test', tsv='test.tsv'):
     test_dataset = torchaudio.datasets.COMMONVOICE(root, tsv)
-
-    valid_audio_transforms = torch.nn.Sequential(
-        torchaudio.transforms.MelSpectrogram(
-            sample_rate=48000,
-            win_length=int(32*48000/1000),
-            hop_length=int(10*48000/1000),
-            n_fft=int(32*48000/1000),
-            n_mels=n_mels,
-        ),
-    )
 
     return torch.utils.data.DataLoader(
         test_dataset,
