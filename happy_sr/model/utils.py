@@ -56,12 +56,14 @@ def greedy_decoder(output, labels, blank_label=28, collapse_repeated=True):
     decoded = []
 
     for phrase in torch.argmax(output, dim=2):
-        decoded.append([''])
+        decoded.append([0])
 
         for arg in phrase:
             if arg != blank_label:
                 if not(collapse_repeated and decoded[-1][-1] == arg):
                     decoded[-1].append(arg)
+
+    print(decoded, labels)
 
     decoded, labels = [int_to_text(d) for d in decoded], [int_to_text(l) for l in labels]
 
