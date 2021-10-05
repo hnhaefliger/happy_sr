@@ -8,6 +8,7 @@ n_mels = 64
 hidden_dim = 256
 dropout = 0.05
 epochs = 10
+batch_size = 16
 
 i = 0
 while i < len(sys.argv):
@@ -27,12 +28,16 @@ while i < len(sys.argv):
         epochs = int(sys.argv[i+1])
         i += 1
 
+    elif sys.argv[i] == '--batch-size':
+        batch_size = int(sys.argv[i+1])
+        i += 1
+
     i += 1
 
 print('loading dataset...')
 
-train_loader = dataset.get_training_data(n_mels, batch_size=16, root='./cv-valid-train', tsv='train.tsv')
-test_loader = dataset.get_training_data(n_mels, batch_size=16, root='./cv-valid-test', tsv='test.tsv')
+train_loader = dataset.get_training_data(n_mels, batch_size=batch_size, root='./cv-valid-train', tsv='train.tsv')
+test_loader = dataset.get_training_data(n_mels, batch_size=batch_size, root='./cv-valid-test', tsv='test.tsv')
 
 print('done loading dataset.\n')
 print('initializing model...')

@@ -9,6 +9,7 @@ n_mels=64
 hidden_dim=256
 dropout=0.05
 epochs=10
+batch_size=16
 
 while [ -n "$1" ]; do # while loop starts
 	case "$1" in
@@ -29,6 +30,9 @@ while [ -n "$1" ]; do # while loop starts
         shift ;;
     "--epochs")
         epochs="$2"
+        shift ;;
+    "--batch-size")
+        batch_size="$2"
         shift ;;
 
 	*) echo "Option $1 not recognized" ;;
@@ -52,4 +56,4 @@ then
     python ./happy_sr/happy_sr/scripts/format_labels.py
 fi
 
-python happy_sr/create_model.py --n-mels $n_mels --hidden-dim $hidden_dim --dropout $dropout --epochs $epochs
+python happy_sr/create_model.py --n-mels $n_mels --hidden-dim $hidden_dim --dropout $dropout --epochs $epochs --batch-size $batch_size
