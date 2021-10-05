@@ -1,6 +1,5 @@
 import torch
 
-
 class BiRNN(torch.nn.Module):
     def __init__(self, in_dim, out_dim, dropout):
         super(BiRNN, self).__init__()
