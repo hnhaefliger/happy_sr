@@ -82,7 +82,7 @@ def error_rate(output, labels):
 
 
 def avg(array):
-  return sum(array/len(array))
+  return sum(array)/len(array)
 
 
 def word_error_rate(output, labels):
