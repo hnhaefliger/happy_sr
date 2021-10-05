@@ -5,7 +5,7 @@ from tqdm import tqdm
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def train(model, optimizer, loss_fn, dataset):
+def train(model, optimizer, loss_fn, dataset, metrics=[]):
     model.to(device)
     model.train()
     progress_bar = tqdm(total=len(dataset))
@@ -25,5 +25,9 @@ def train(model, optimizer, loss_fn, dataset):
         loss.backward()
         optimizer.step()
 
-        progress_bar.set_postfix(loss=f'{loss.item():.2f}')
+        info = {}
+        for metric in metrics:
+            info[metric.__name__] == metric(output, target)
+
+        progress_bar.set_postfix(loss=f'{loss.item():.2f}', **info)
         progress_bar.update(1)
