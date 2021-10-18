@@ -4,7 +4,7 @@ import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-chars = ' ,<SPACE>,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(
+chars = '\', ,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(
     ',')
 
 
@@ -60,11 +60,16 @@ def greedy_decoder(output, labels, blank_label=28, collapse_repeated=True):
 
     for phrase in torch.argmax(output, dim=2):
         decoded.append([0])
+        previous = ''
 
         for arg in phrase:
             if arg != blank_label:
-                if not(collapse_repeated and decoded[-1][-1] == arg):
+                if not(collapse_repeated and previous == arg):
                     decoded[-1].append(arg.item())
+                    previous = arg.item()
+
+            else:
+                previous = ''
 
     decoded, labels = [int_to_text(d) for d in decoded], [
         int_to_text(l) for l in targets]

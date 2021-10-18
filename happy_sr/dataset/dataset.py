@@ -12,7 +12,7 @@ else:
     num_workers = 0
     pin_memory = False
 
-chars = ' ,<SPACE>,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',')
+chars = '\', ,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',')
 
 
 def text_to_int(text):
@@ -56,7 +56,7 @@ def prepare_training_data(data):
 
         spectrograms.append(spectrogram)
 
-        label = torch.Tensor(text_to_int(re.sub('[^a-zA-Z ]+', '', dictionary['sentence'].lower())))
+        label = torch.Tensor(text_to_int(re.sub('[^a-zA-Z \']+', '', dictionary['sentence'].lower())))
         labels.append(label)
 
         input_lengths.append(spectrogram.shape[0]//2)
@@ -79,7 +79,7 @@ def prepare_testing_data(data):
 
         spectrograms.append(spectrogram)
 
-        label = torch.Tensor(text_to_int(re.sub('[^a-zA-Z ]+', '', dictionary['sentence'].lower())))
+        label = torch.Tensor(text_to_int(re.sub('[^a-zA-Z \']+', '', dictionary['sentence'].lower())))
         labels.append(label)
 
         input_lengths.append(spectrogram.shape[0]//2)
