@@ -60,4 +60,4 @@ then
     python ./happy_sr/happy_sr/scripts/format_labels.py
 fi
 
-python happy_sr/create_model.py --n-mels $n_mels --hidden-dim $hidden_dim --dropout $dropout --epochs $epochs --batch-size $batch_size --lr $learning_rate
+python3 happy_sr/create_model.py --n-mels $n_mels --hidden-dim $hidden_dim --dropout $dropout --epochs $epochs --batch-size $batch_size --lr $learning_rate
