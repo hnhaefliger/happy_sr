@@ -64,7 +64,7 @@ print('starting training...')
 
 for epoch in range(1, epochs + 1):
     print(f'epoch {epoch}')
-    utils.train(sr_model, optimizer, loss, train_loader, metrics=[model.word_error_rate, model.char_error_rate])
+    utils.train(sr_model, optimizer, loss, train_loader)#, metrics=[model.word_error_rate, model.char_error_rate])
     utils.test(sr_model, loss, test_loader)
 
     scheduler.step()
