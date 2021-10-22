@@ -4,12 +4,16 @@ from tqdm import tqdm
 
 import gc
 def print_gc():
+    i = 0
     for obj in gc.get_objects():
         try:
             if torch.is_tensor(obj) or (hasattr(obj, 'data') and torch.is_tensor(obj.data)):
-                print(type(obj), obj.size())
+                #print(type(obj), obj.size())
+                i += 1
         except:
             pass
+
+    print(i)
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
