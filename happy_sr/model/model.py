@@ -30,7 +30,7 @@ class Model(torch.nn.Module):
         self.rnn = BiRNN(hidden_dim, hidden_dim, dropout)
     
         self.hidden2 = torch.nn.Sequential(
-            torch.nn.Linear(hidden_dim*2, out_dim)
+            torch.nn.Linear(hidden_dim, out_dim)
         )
 
     def forward(self, x):
