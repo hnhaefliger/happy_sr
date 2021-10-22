@@ -5,7 +5,7 @@ from tqdm import tqdm
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def test(model, loss_fn, dataset):
+def test(model, loss_fn, dataset, metrics=[]):
     model.to(device)
     model.eval()
     progress_bar = tqdm(total=len(dataset))
@@ -21,6 +21,14 @@ def test(model, loss_fn, dataset):
 
         loss = loss_fn(output, target, input_lengths, label_lengths)
 
-        progress_bar.set_postfix(loss=f'{loss.item():.2f}')
+        if batch_idx % 10 == 0:
+            info = {}
+            for metric in metrics:
+                info[metric.__name__] = metric(output, target)
 
+        progress_bar.set_postfix(loss=f'{loss.item():.2f}', **info)
         progress_bar.update(1)
+
+        del data, target, output, loss, info
+        if device == 'cuda':
+            torch.cuda.empty_cache()
