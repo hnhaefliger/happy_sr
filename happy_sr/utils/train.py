@@ -1,5 +1,6 @@
 import torch
 from tqdm import tqdm
+import gc
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -35,6 +36,7 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         progress_bar.update(1)
 
         del data, target, output, loss
+        gc.collect()
         torch.cuda.synchronize()
         if device == 'cuda':
             torch.cuda.empty_cache()
