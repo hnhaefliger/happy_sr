@@ -51,4 +51,4 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         if device == 'cuda':
             torch.cuda.empty_cache()
         #print_gc()
-        print(torch.cuda.getMemoryUsage(0))
+        print(torch.cuda.memory_summary(0))
