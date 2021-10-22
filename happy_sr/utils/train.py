@@ -48,6 +48,7 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         progress_bar.update(1)
 
         del data, target, output, loss
+        torch.cuda.synchronize()
         if device == 'cuda':
             torch.cuda.empty_cache()
         #print_gc()
