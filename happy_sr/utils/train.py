@@ -46,3 +46,4 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         del data, target, output, loss
         if device == 'cuda':
             torch.cuda.empty_cache()
+        print_gc()
