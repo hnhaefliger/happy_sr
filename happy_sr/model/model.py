@@ -3,11 +3,12 @@ import torch
 class BiRNN(torch.nn.Module):
     def __init__(self, in_dim, out_dim, dropout):
         super(BiRNN, self).__init__()
-        self.rnn = torch.nn.RNN(in_dim, out_dim)#, bidirectional=True)
+        self.rnn = torch.nn.RNN(in_dim, out_dim, bidirectional=True)
         self.dropout = torch.nn.Dropout(dropout)
 
     def forward(self, x):
         x, _ = self.rnn(x)
+        del _
         x = self.dropout(x)
         return x
 
