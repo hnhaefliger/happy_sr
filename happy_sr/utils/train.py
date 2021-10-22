@@ -33,6 +33,6 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         progress_bar.set_postfix(loss=f'{loss.item():.2f}', **info)
         progress_bar.update(1)
 
-        del data, target, output, loss, info
+        del data, target, output, loss
         if device == 'cuda':
             torch.cuda.empty_cache()
