@@ -6,17 +6,14 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def test(model, loss_fn, dataset, metrics=[]):
-    if device == 'cuda':
-        model.cuda()
-        
+    model.to(device)
     model.eval()
     progress_bar = tqdm(total=len(dataset))
     progress_bar.set_description(f'evaluation')
 
     for batch_idx, (data, target, input_lengths, label_lengths) in enumerate(dataset):
-        if device == 'cuda':
-            data = data.cuda()
-            target = target.cuda()
+        data = data.to(device)
+        target = target.to(device)
 
         output = model(data)
         output = torch.nn.functional.log_softmax(output, dim=2)
