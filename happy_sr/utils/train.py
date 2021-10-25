@@ -14,6 +14,7 @@ def train(model, optimizer, loss_fn, dataset):
 
     for batch_idx, (data, target, input_lengths, label_lengths) in enumerate(dataset):
         #print(torch.cuda.memory_allocated() / torch.cuda.max_memory_allocated())
+        #print(torch.cuda.memory_allocated() / torch.cuda.max_memory_reserved())
         data = data.to(device)
         target = target.to(device)
 
