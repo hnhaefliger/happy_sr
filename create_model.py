@@ -60,7 +60,7 @@ print('initializing model...')
 
 sr_model = model.Model(n_mels, 29, hidden_dim, dropout)
 
-if load:
+if load != 'false':
     sr_model.load_state_dict(torch.load(load))
 
 print('model ready.\n')
@@ -80,7 +80,7 @@ for epoch in range(1, epochs + 1):
     print(f'epoch {epoch}')
     utils.train(sr_model, optimizer, loss, train_loader)#, metrics=[model.word_error_rate, model.char_error_rate])
 
-    if save:
+    if save != 'false':
         torch.save(sr_model.state_dict(), save)
 
     utils.test(sr_model, loss, test_loader)
