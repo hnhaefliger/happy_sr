@@ -6,7 +6,7 @@ import gc
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def train(model, optimizer, loss_fn, dataset, metrics=[]):
+def train(model, optimizer, loss_fn, dataset):
     model.to(device)
     model.train()
     progress_bar = tqdm(total=len(dataset))
@@ -17,22 +17,15 @@ def train(model, optimizer, loss_fn, dataset, metrics=[]):
         data = data.to(device)
         target = target.to(device)
 
-        output = model(data)
-        output = torch.nn.functional.log_softmax(output, dim=2)
+        output = torch.nn.functional.log_softmax(model(data), dim=2).transpose(0, 1)
 
-        output = output.transpose(0, 1)
         loss = loss_fn(output, target, input_lengths, label_lengths)
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-        if batch_idx % 10 == 0:
-            info = {}
-            for metric in metrics:
-                info[metric.__name__] = metric(output, target)
-
-        progress_bar.set_postfix(loss=f'{loss.item():.2f}', **info)
+        progress_bar.set_postfix(loss=f'{loss.item():.2f}')
         progress_bar.update(1)
 
         del data, target, output, loss

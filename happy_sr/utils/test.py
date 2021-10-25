@@ -16,9 +16,7 @@ def test(model, loss_fn, dataset, metrics=[]):
         data = data.to(device)
         target = target.to(device)
 
-        output = model(data)
-        output = torch.nn.functional.log_softmax(output, dim=2)
-        output = output.transpose(0, 1)
+        output = torch.nn.functional.log_softmax(model(data), dim=2).transpose(0, 1)
 
         loss = loss_fn(output, target, input_lengths, label_lengths)
 
