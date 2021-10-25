@@ -12,8 +12,8 @@ dropout=0.05
 epochs=10
 batch_size=16
 learning_rate=1e-5
-load=""
-save=""
+load=false
+save=false
 
 while [ -n "$1" ]; do # while loop starts
 	case "$1" in
