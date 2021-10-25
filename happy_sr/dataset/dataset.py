@@ -7,7 +7,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if device == "cuda":
     num_workers = 1
-    pin_memory = True
+    pin_memory = False #True
 else:
     num_workers = 0
     pin_memory = False
