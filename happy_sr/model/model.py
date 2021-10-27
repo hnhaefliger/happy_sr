@@ -8,8 +8,8 @@ class BiRNN(torch.nn.Module):
 
     def forward(self, x):
         x, _ = self.rnn(x)
-        del _
         x = self.dropout(x)
+        
         return x
 
 
@@ -34,6 +34,8 @@ class Model(torch.nn.Module):
             torch.nn.Linear(hidden_dim*2, out_dim)
         )
 
+        self.activate = torch.nn.functional.log_softmax
+
     def forward(self, x):
         sizes = x.size()
         x = torch.reshape(x, (sizes[0], sizes[1] * sizes[2], sizes[3]))
@@ -41,4 +43,6 @@ class Model(torch.nn.Module):
         x = self.hidden1(x)
         x = self.rnn(x)
         x = self.hidden2(x)
+        x = self.activate(x, dim=2)
+
         return x

@@ -13,12 +13,15 @@ def train(model, optimizer, loss_fn, dataset):
     progress_bar.set_description(f'training')
 
     for batch_idx, (data, target, input_lengths, label_lengths) in enumerate(dataset):
-        #print(torch.cuda.memory_allocated() / torch.cuda.max_memory_allocated())
-        #print(torch.cuda.memory_allocated() / torch.cuda.max_memory_reserved())
         data = data.to(device)
         target = target.to(device)
 
-        output = torch.nn.functional.log_softmax(model(data), dim=2).transpose(0, 1)
+        output = model(data)
+        #output = torch.nn.functional.log_softmax(output, dim=2)
+        output = output.transpose(0, 1)
+
+        #print(torch.cuda.memory_allocated(), '\t', torch.cuda.max_memory_reserved())
+        #continue
 
         loss = loss_fn(output, target, input_lengths, label_lengths)
 
