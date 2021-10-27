@@ -20,8 +20,15 @@ def train(model, optimizer, loss_fn, dataset):
         output = torch.nn.functional.log_softmax(output, dim=2)
         output = output.transpose(0, 1)
 
+        if batch_idx % 100 == 0:
+            for obj in gc.get_objects():
+                try:
+                    if torch.is_tensor(obj) or (hasattr(obj, 'data') and torch.is_tensor(obj.data)):
+                        print(type(obj), obj.size())
+                except: pass
+
         #print(torch.cuda.memory_allocated(), '\t', torch.cuda.max_memory_reserved())
-        #continue
+        continue
 
         loss = loss_fn(output, target, input_lengths, label_lengths)
 
