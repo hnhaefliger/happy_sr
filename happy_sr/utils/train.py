@@ -17,7 +17,7 @@ def train(model, optimizer, loss_fn, dataset):
         target = target.to(device)
 
         output = model(data)
-        #output = torch.nn.functional.log_softmax(output, dim=2)
+        output = torch.nn.functional.log_softmax(output, dim=2)
         output = output.transpose(0, 1)
 
         #print(torch.cuda.memory_allocated(), '\t', torch.cuda.max_memory_reserved())
