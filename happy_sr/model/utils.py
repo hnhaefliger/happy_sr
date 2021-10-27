@@ -17,7 +17,7 @@ def int_to_text(labels):
 
 
 def get_optimizer(model, loader, epochs, learning_rate):
-    optimizer = torch.optim.Adam(model.parameters(), learning_rate)
+    optimizer = torch.optim.SDG(model.parameters(), learning_rate)
     scheduler = torch.optim.lr_scheduler.OneCycleLR(
         optimizer, max_lr=1e-6, steps_per_epoch=int(len(loader)), epochs=epochs, anneal_strategy='linear')
 
